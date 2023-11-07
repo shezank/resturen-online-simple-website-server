@@ -4,12 +4,18 @@ require('dotenv').config()
 const app = express();
 const port = process.env.PORT || 5000;
 
-// kasmeriresturent
-// TMt2c602hdIIR4T9
+const corsConfig = {
+    origin: [
+        'https://kasmeri-resturent.web.app',
+        'https://kasmeri-resturent.firebaseapp.com'
+      ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+  }
 
 app.use(express.json());
 app.use(cors());
-
+app.use(cors(corsConfig));
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.iyzg5.mongodb.net/?retryWrites=true&w=majority`;
