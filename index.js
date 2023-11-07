@@ -107,6 +107,15 @@ async function run() {
             const result = await orderCollection.insertOne(product);
             res.send(result);
         })
+        app.get('/orders', async (req, res) => {
+            const page = parseInt(req.query.page);
+            const size = parseInt(req.query.size);
+            const result = await orderCollection.find()
+            .skip(page * size)
+            .limit(size)
+            .toArray();
+            res.send(result);
+        })
 
         app.get('/orders/:email', async(req,res)=>{
             const email = req.params.email;
